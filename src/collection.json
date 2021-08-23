@@ -1,0 +1,13 @@
+{
+  "schematics": {
+    "json": {
+      "description": "ABP json Generator Schematics",
+      "factory": "./commands/json/index",
+      "schema": "./commands/json/schema.json"
+    },
+    "ng-add": {
+      "description": "Add translation-generator to your Angular project",
+      "factory": "./ng-add/index#ngAdd"
+    }
+  }
+}

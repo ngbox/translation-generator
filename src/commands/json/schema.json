@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "json",
+  "type": "object",
+  "properties": {
+    "src": {
+      "type": "string",
+      "description": "Relative path of the source JSON file",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Source JSON relative filepath *"
+    },
+    "to": {
+      "type": "string",
+      "description": "Language to generate translations for",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "To language *"
+    },
+    "from": {
+      "type": "string",
+      "description": "Language to generate translations from",
+      "$default": {
+        "$source": "argv",
+        "index": 2
+      },
+      "x-prompt": "From language (resolved from source filename)"
+    }
+  },
+  "required": ["src", "to"]
+}
