@@ -45,3 +45,9 @@ npx ng g translation-generator:json src/assets/i18n/en.json fr
 ```sh
 npx ng g translation-generator:json --to=fr --src=src/assets/i18n/en.json
 ```
+
+<hr />
+
+<p align="center">
+  <img width="255" src="https://user-images.githubusercontent.com/34455572/115242872-f8373c80-a12a-11eb-9b52-f3b75bd2f61e.png" alt="Developed by NG Box" />
+</p>
