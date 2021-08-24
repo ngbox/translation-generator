@@ -2,6 +2,8 @@
 
 This library generates translation files based on previously translated files using Angular schematics, Google Translate, and Playwright.
 
+> **A Note:** The generator removes any HTML tags in the source before translating it. It will not modify the source file, but you will not find those tags in the generated translation.
+
 ## Installation
 
 Run the following command in your terminal to install the package in your project:
