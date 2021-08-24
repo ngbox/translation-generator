@@ -1,8 +1,10 @@
 # Translation Generator
 
-This library generates translation files based on previously translated files using Angular schematics, Google Translate, and Playwright.
+This library generates translation files based on previously translated files using Angular schematics, Google Translate, and Playwright. You can use it together with [Transloco](https://github.com/ngneat/transloco/) or [ngx-translate](https://github.com/ngx-translate/core).
 
 > **A Note:** The generator removes any HTML tags in the source before translating it. It will not modify the source file, but you will not find those tags in the generated translation.
+>
+> **Also a note:** Factors like rate limits (applied by Google) or connection problems can interrupt the translation process. Please try again after a while and with smaller a translation file.
 
 ## Installation
 
