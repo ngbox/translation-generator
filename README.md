@@ -48,7 +48,7 @@ npx ng g translation-generator:json src/assets/i18n/en.json fr
 npx ng g translation-generator:json --to=fr --src=src/assets/i18n/en.json
 ```
 
-![translation-generator-in-action](https://user-images.githubusercontent.com/15855540/130580947-a72b5038-5d95-4f2a-a21c-8880554903df.gif)
+![translation-generator](https://user-images.githubusercontent.com/15855540/130627615-7bda8d0c-44f8-4127-8488-541b7725cb0c.gif)
 
 <hr />
 
