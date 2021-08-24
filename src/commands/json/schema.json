@@ -29,6 +29,24 @@
         "index": 2
       },
       "x-prompt": "From language (resolved from source filename)"
+    },
+    "left": {
+      "type": "string",
+      "description": "Left interpolation marker",
+      "$default": {
+        "$source": "argv",
+        "index": 3
+      },
+      "x-prompt": "Left interpolation ( default: {{ )"
+    },
+    "right": {
+      "type": "string",
+      "description": "Right interpolation marker",
+      "$default": {
+        "$source": "argv",
+        "index": 3
+      },
+      "x-prompt": "Right interpolation ( default: }} )"
     }
   },
   "required": ["src", "to"]

@@ -1,9 +1,14 @@
 import { Tree } from '@angular-devkit/schematics';
 import path from 'path';
 import { chromium } from 'playwright';
+import {
+  insertPlaceholders,
+  replacePlaceholders,
+  stripHtml,
+} from '../../utils/text-utils';
 import schema from './schema.json';
 
-export default function ({ src, to, from }: Params) {
+export default function ({ src, to, from, left, right }: Params) {
   return async (tree: Tree) => {
     const buffer = tree.read(src);
     if (!buffer) {
@@ -20,7 +25,10 @@ export default function ({ src, to, from }: Params) {
 
     from = from || src.replace(/([^.])\.\w+$/, '$1');
 
-    const [translate, destroyTranslator] = await useTranslator(from, to);
+    const [translate, destroyTranslator] = await useTranslator(from, to, [
+      left || '{{',
+      right || '}}',
+    ]);
 
     const translations = await translateRecursively(translate, data);
 
@@ -57,7 +65,11 @@ async function translateRecursively(
   return translations;
 }
 
-async function useTranslator(fromLanguage: string, toLanguage: string) {
+async function useTranslator(
+  fromLanguage: string,
+  toLanguage: string,
+  interpolation: [string, string]
+) {
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext();
   await context.grantPermissions(['clipboard-read']);
@@ -72,13 +84,18 @@ async function useTranslator(fromLanguage: string, toLanguage: string) {
 
   async function translate(textOrHtml: string) {
     const text = await page.evaluate(stripHtml, textOrHtml);
+    const [textWithPlaceholders, ...tokens] = insertPlaceholders(
+      text,
+      interpolation
+    );
     await Promise.all([
       page.waitForNavigation(),
-      page.fill('[aria-label="Source text"]', text),
+      page.fill('[aria-label="Source text"]', textWithPlaceholders),
     ]);
     await page.click('[aria-label="Copy translation"]');
     await page.click('[aria-label="Clear source text"]');
-    return page.evaluate(() => navigator.clipboard.readText());
+    const result = await page.evaluate(() => navigator.clipboard.readText());
+    return replacePlaceholders(result, tokens);
   }
 
   async function destroyTranslator() {
@@ -86,12 +103,6 @@ async function useTranslator(fromLanguage: string, toLanguage: string) {
     await context.close();
     await browser.close();
   }
-}
-
-function stripHtml(html: string): string {
-  const tempBody = document.implementation.createHTMLDocument('').body;
-  tempBody.innerHTML = html;
-  return tempBody.textContent || tempBody.innerText || '';
 }
 
 type Properties = typeof schema['properties'];
