@@ -44,7 +44,7 @@
       "description": "Right interpolation marker",
       "$default": {
         "$source": "argv",
-        "index": 3
+        "index": 4
       },
       "x-prompt": "Right interpolation ( default: }} )"
     }
