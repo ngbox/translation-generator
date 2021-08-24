@@ -25,30 +25,44 @@ npm install -D translation-generator
 Run the following command in your terminal:
 
 ```sh
-npx ng g translation-generator:json <source JSON path> <to language> <from language>
+npx ng g translation-generator:json
+```
+
+The generator will prompt some questions. You may pass them as parameters:
+
+```sh
+npx ng g translation-generator:json <source JSON path> <to language> <from language> <left interpolation> <right interpolation>
 ```
 
 Please find an example below:
 
 ```sh
-npx ng g translation-generator:json src/assets/i18n/en.json fr en
+npx ng g translation-generator:json src/assets/i18n/en.json fr en "<%" "%>"
 ```
 
 You can also use command parameters by name to give them in a different order:
 
 ```sh
-npx ng g translation-generator:json --from=en --to=fr --src=src/assets/i18n/en.json
+npx ng g translation-generator:json --from=en --to=fr --left="<%" --right="%>" --src=src/assets/i18n/en.json
 ```
 
-The `--from` parameter is optional and the language will be resolved from source filename, so these will work:
+The `--left` and `--right` parameters are optional and their default values are `{{` and `}}` respectively.
+The `--from` parameter is also optional and the source language will be resolved from the source filename.
+
+You can pass some of the arguments and answer the rest when prompted:
 
 ```sh
 npx ng g translation-generator:json src/assets/i18n/en.json fr
 ```
 
+...or...
+
 ```sh
 npx ng g translation-generator:json --to=fr --src=src/assets/i18n/en.json
 ```
+
+Leave anwsers blank if they are optional and you want to use the default values.
+Here is how that works:
 
 ![translation-generator](https://user-images.githubusercontent.com/15855540/130627615-7bda8d0c-44f8-4127-8488-541b7725cb0c.gif)
 
