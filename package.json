@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@angular-devkit/schematics": "~12.2.0",
+    "jsdom": ">9 <17",
     "playwright": "~1.14.0"
   },
   "devDependencies": {
