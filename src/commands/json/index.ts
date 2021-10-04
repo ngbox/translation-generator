@@ -83,9 +83,8 @@ async function useTranslator(
   return [translate, destroyTranslator] as const;
 
   async function translate(textOrHtml: string) {
-    const text = await page.evaluate(stripHtml, textOrHtml);
     const [textWithPlaceholders, ...tokens] = insertPlaceholders(
-      text,
+      stripHtml(textOrHtml),
       interpolation
     );
     await Promise.all([

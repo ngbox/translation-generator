@@ -1,7 +1,10 @@
+const { JSDOM } = require('jsdom');
+
 export function stripHtml(html: string) {
-  const tempBody = document.implementation.createHTMLDocument('').body;
-  tempBody.innerHTML = html;
-  return tempBody.textContent || tempBody.innerText || '';
+  const { document } = new JSDOM().window;
+  const temp = document.createElement('div');
+  temp.innerHTML = html;
+  return temp.textContent || temp.innerText || '';
 }
 
 export function insertPlaceholders(text: string, interpolation = ['{{', '}}']) {
